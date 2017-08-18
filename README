@@ -23,9 +23,10 @@ After that, the compile command is as below:
 
 g++ -o image_analysis main.cpp Image/Species.cpp  ImageProcessing/MorphologyImageProcessor.cpp GMM/GMM.cpp GMM/KMeans.cpp ImageProcessing/CannyEdgeDetection.cpp  GoogleEarth/GoogleEarthImage.cpp -I /usr/local/include/ -L /usr/local/lib -ltiff -lgeotiff
 
-From the above command -o image_analysis means the executable program's name is image_analysis; -I /usr/local/include/ this means
-the folder of the headers of libtiff and libgeotiff; -L /usr/local/lib means the library of libtiff and libgeotiff. These information
-may be different according to different configuration during the installation of these 2 library.
+From the above command -o image_analysis means the executable program's name is image_analysis; 
+-I /usr/local/include/ this means the folder of the headers of libtiff and libgeotiff; 
+-L /usr/local/lib means the library of libtiff and libgeotiff. 
+These information may be different according to different configuration during the installation of these 2 library.
 
 The command for runing this image_analysis program is as below:
 
@@ -41,7 +42,8 @@ The project has been tested on Mac OS, Ubuntu 14.04 and Ubuntu 16.04.
 For Mac:
 	install libtiff: http://macappstore.org/libtiff/
 	install libgeotiff and lib proj: http://macappstore.org/libgeotiff/
-	compile command:
+	
+        compile command:
 	g++ -o image_analysis main.cpp Image/Species.cpp  ImageProcessing/MorphologyImageProcessor.cpp GMM/GMM.cpp GMM/KMeans.cpp ImageProcessing/CannyEdgeDetection.cpp  GoogleEarth/GoogleEarthImage.cpp -I /usr/local/include/ -L /usr/local/lib -ltiff -lgeotiff
 
 /****************************************************************************/
@@ -51,7 +53,7 @@ For Ubuntu 14.04 and Ubuntu 16.04:
 The easy way to install extra 3 libraries is through the command line as below:
        	
        	sudo apt-get update
-		sudo apt-get install libgeotiff-dev
+	sudo apt-get install libgeotiff-dev
 
 Normally, libgeotiff-dev will install libtiff, libproj and libgeotiff by default. However, make sure these
 3 libraries has been installed before compiling the project.
