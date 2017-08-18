@@ -1,0 +1,63 @@
+/****************************************************************************/
+/**                        Project Description                             **/
+/****************************************************************************/
+This project is used for analysing the thermal image to get the Crop Water 
+Stress Index (CWSI). For the thermal image, for now, it only supports the 
+tiff format image that contains the geoinformation (coordinates).
+
+For the program, it takes 2 input files: the tiff format thermal image that
+contains the coordinates and the species boundary file(kml file). It will 
+generate 2 results: the color CWSI map in tiff format and the folder that contains
+the kml file and CWSI image used to show the CWSI on Google Earth.
+
+To run the code, you need to install 3 more extra libraries:
+
+(1) libtiff: This is used to read the tiff image.
+(2) libgeotiff: This is used get the geoinformation (coordinates) from the
+                tiff image.
+(3) libproj: This is used to map the longtitude and latitude to the pixel
+             position (i,j) in the image.
+
+
+After that, the compile command is as below:
+
+g++ -o image_analysis main.cpp Image/Species.cpp  ImageProcessing/MorphologyImageProcessor.cpp GMM/GMM.cpp GMM/KMeans.cpp ImageProcessing/CannyEdgeDetection.cpp  GoogleEarth/GoogleEarthImage.cpp -I /usr/local/include/ -L /usr/local/lib -ltiff -lgeotiff
+
+From the above command -o image_analysis means the executable program's name is image_analysis; -I /usr/local/include/ this means
+the folder of the headers of libtiff and libgeotiff; -L /usr/local/lib means the library of libtiff and libgeotiff. These information
+may be different according to different configuration during the installation of these 2 library.
+
+The command for runing this image_analysis program is as below:
+
+./image_analysis -i bigimage2.tif -b BigImageBoundaryInformation.kml 
+
+-i bigimage2.tif means the path to the tiff image
+-b BigImageBoundaryInformation.kml  means the path to the species boundary file(kml file).
+
+The project has been tested on Mac OS, Ubuntu 14.04 and Ubuntu 16.04.
+/****************************************************************************/
+/**                        Compile Project on Mac                          **/
+/****************************************************************************/
+For Mac:
+	install libtiff: http://macappstore.org/libtiff/
+	install libgeotiff and lib proj: http://macappstore.org/libgeotiff/
+	compile command:
+	g++ -o image_analysis main.cpp Image/Species.cpp  ImageProcessing/MorphologyImageProcessor.cpp GMM/GMM.cpp GMM/KMeans.cpp ImageProcessing/CannyEdgeDetection.cpp  GoogleEarth/GoogleEarthImage.cpp -I /usr/local/include/ -L /usr/local/lib -ltiff -lgeotiff
+
+/****************************************************************************/
+/**                        Compile Project on Ubuntu                       **/
+/****************************************************************************/
+For Ubuntu 14.04 and Ubuntu 16.04:
+The easy way to install extra 3 libraries is through the command line as below:
+       	
+       	sudo apt-get update
+		sudo apt-get install libgeotiff-dev
+
+Normally, libgeotiff-dev will install libtiff, libproj and libgeotiff by default. However, make sure these
+3 libraries has been installed before compiling the project.
+
+On Ubuntu 14.04 and Ubuntu 16.04, the object files of libtiff, libproj and libgeotiff used for linking project
+will be placed in /usr/lib/x86_64-linux-gnu/; the headers of the libtiff, libproj and libgeotiff will be placed
+in /usr/include/geotiff/. There for the compile command is as below:
+
+g++ -std=c++11 -o image_analysis main.cpp Image/Species.cpp  ImageProcessing/MorphologyImageProcessor.cpp GMM/GMM.cpp GMM/KMeans.cpp ImageProcessing/CannyEdgeDetection.cpp  GoogleEarth/GoogleEarthImage.cpp -I /usr/include/geotiff/ -L /usr/lib/x86_64-linux-gnu/ -ltiff -lgeotiff
